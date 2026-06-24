@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "685890989114",
+    "project_id": "sendrealm-307ab",
+    "storage_bucket": "sendrealm-307ab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685890989114:android:c975d3d402fd392a611903",
+        "android_client_info": {
+          "package_name": "com.sendrealm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhlaJqDAxbRcwnZLj5WWfIGKOfa_rQJvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
