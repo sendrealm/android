@@ -6,6 +6,7 @@ data class SendrealmDiagnostics(
     val apiUrlSource: String,
     val sdkVersion: String,
     val platform: String,
+    val environment: String,
     val deviceId: String?,
     val registrationTokenPresent: Boolean,
     val permissionStatus: String,

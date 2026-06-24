@@ -44,6 +44,7 @@ object Sendrealm {
     private const val KEY_APP_ID = "app_id"
     private const val KEY_BASE_URL = "base_url"
     private const val KEY_PLATFORM = "platform"
+    private const val KEY_ENVIRONMENT = "environment"
     private const val KEY_DEVICE_ID = "device_id"
     private const val KEY_EXTERNAL_USER_ID = "external_user_id"
     private const val KEY_USER_EMAIL = "user_email"
@@ -149,6 +150,7 @@ object Sendrealm {
             val response = apiClient.initializeBlocking(
                 appId = appId,
                 platform = getStoredPlatform(appContext),
+                environment = getStoredEnvironment(appContext),
                 deviceId = getStoredDeviceId(appContext),
                 appVersion = getAppVersion(appContext),
                 sdkVersion = SDK_VERSION,
@@ -426,6 +428,7 @@ object Sendrealm {
                 externalUserId = externalUserId,
                 userEmail = userEmail,
                 platform = "android",
+                environment = "production",
                 sdkVersion = SDK_VERSION
             )
 
@@ -452,6 +455,7 @@ object Sendrealm {
             externalUserId = getStoredExternalUserId(appContext),
             userEmail = getStoredUserEmail(appContext),
             platform = getStoredPlatform(appContext),
+            environment = getStoredEnvironment(appContext),
             sdkVersion = SDK_VERSION
         )
     }
@@ -465,6 +469,7 @@ object Sendrealm {
             apiUrlSource = getStoredApiUrlSource(appContext),
             sdkVersion = SDK_VERSION,
             platform = getStoredPlatform(appContext),
+            environment = getStoredEnvironment(appContext),
             deviceId = getStoredDeviceId(appContext),
             registrationTokenPresent = !token.isNullOrBlank(),
             permissionStatus = getPermissionStatus(appContext),
@@ -1254,6 +1259,7 @@ object Sendrealm {
         appId: String? = "app_123",
         baseUrl: String? = null,
         platform: String = "android",
+        environment: String = "production",
         deviceId: String? = "device_123",
         registrationToken: String? = null,
         externalUserId: String? = null,
@@ -1270,6 +1276,7 @@ object Sendrealm {
             putString(KEY_APP_ID, appId)
             putString(KEY_BASE_URL, normalize(baseUrl)?.trimEnd('/'))
             putString(KEY_PLATFORM, normalize(platform) ?: "android")
+            putString(KEY_ENVIRONMENT, normalizeEnvironment(environment))
             putString(KEY_DEVICE_ID, deviceId)
             putString(KEY_LAST_TOKEN, registrationToken)
             putString(KEY_EXTERNAL_USER_ID, this@Sendrealm.externalUserId)
@@ -1676,6 +1683,7 @@ object Sendrealm {
             appId = appId,
             registrationId = token,
             platform = getStoredPlatform(context),
+            environment = getStoredEnvironment(context),
             deviceId = deviceId,
             apnsDeviceToken = null,
             userExternalId = externalUserId,
@@ -1722,6 +1730,7 @@ object Sendrealm {
             appId = appId,
             deviceId = deviceId,
             platform = getStoredPlatform(context),
+            environment = getStoredEnvironment(context),
             subscribed = subscribed,
             registrationId = registrationId,
             apnsDeviceToken = null,
@@ -1764,6 +1773,7 @@ object Sendrealm {
         prefs.edit {
             putString(KEY_APP_ID, appId)
             putString(KEY_PLATFORM, normalize(config.platform) ?: "android")
+            putString(KEY_ENVIRONMENT, normalizeEnvironment(config.environment))
 
             if (normalizedBaseUrl != null) {
                 putString(KEY_BASE_URL, normalizedBaseUrl)
@@ -2463,6 +2473,9 @@ object Sendrealm {
     private fun getStoredPlatform(context: Context): String =
         getPrefs(context).getString(KEY_PLATFORM, null) ?: "android"
 
+    private fun getStoredEnvironment(context: Context): String =
+        normalizeEnvironment(getPrefs(context).getString(KEY_ENVIRONMENT, null))
+
     private fun getStoredExternalUserId(context: Context): String? =
         getPrefs(context).getString(KEY_EXTERNAL_USER_ID, null)
 
@@ -2746,6 +2759,10 @@ object Sendrealm {
     private fun normalize(value: String?): String? {
         val trimmed = value?.trim()
         return if (trimmed.isNullOrEmpty()) null else trimmed
+    }
+
+    private fun normalizeEnvironment(value: String?): String {
+        return if (normalize(value) == "development") "development" else "production"
     }
 
     private fun normalizeTagValue(value: Any?): Any? {

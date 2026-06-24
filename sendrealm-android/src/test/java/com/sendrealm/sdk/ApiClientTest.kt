@@ -81,6 +81,7 @@ class ApiClientTest {
         val response = apiClient.initializeBlocking(
             appId = "app_123",
             platform = "android",
+            environment = "development",
             deviceId = "device_existing",
             appVersion = "1.2.3",
             sdkVersion = "0.0.1",
@@ -107,6 +108,7 @@ class ApiClientTest {
         val body = request.jsonBody()
         assertEquals("app_123", body.string("app_id"))
         assertEquals("android", body.string("platform"))
+        assertEquals("development", body.string("environment"))
         assertEquals("device_existing", body.string("device_id"))
         assertEquals("1.2.3", body.string("app_version"))
         assertEquals("0.0.1", body.string("sdk_version"))
@@ -143,6 +145,7 @@ class ApiClientTest {
             appId = "app_123",
             registrationId = "fcm-token",
             platform = "android",
+            environment = "development",
             deviceId = "device_123",
             userExternalId = "user_123",
             userEmail = "person@example.com",
@@ -169,6 +172,7 @@ class ApiClientTest {
         val body = request.jsonBody()
         assertEquals("app_123", body.string("app_id"))
         assertEquals("fcm-token", body.string("registration_id"))
+        assertEquals("development", body.string("environment"))
         assertEquals("device_123", body.string("device_id"))
         assertEquals("user_123", body.string("user_external_id"))
         assertEquals("person@example.com", body.string("user_email"))
@@ -209,6 +213,7 @@ class ApiClientTest {
                 appId = "app_123",
                 deviceId = "device_123",
                 platform = "android",
+                environment = "development",
                 subscribed = false,
                 registrationId = "fcm-token",
                 sdkVersion = "0.0.1",
@@ -275,6 +280,7 @@ class ApiClientTest {
 
         val subscriptionBody = requests[2].jsonBody()
         assertFalse(subscriptionBody["subscribed"].asBoolean)
+        assertEquals("development", subscriptionBody.string("environment"))
         assertEquals("fcm-token", subscriptionBody.string("registration_id"))
         assertEquals("subscription-key", subscriptionBody.string("idempotency_key"))
 

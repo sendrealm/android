@@ -76,6 +76,7 @@ class MainActivity : ComponentActivity() {
 
         val config = SendrealmConfig()
             .setBaseUrl("https://sdk-api.sendrealm.com")
+            .setEnvironment("development")
             .setAutoRequestPermission(false)
 
         Sendrealm.initialize(
@@ -92,6 +93,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 ```
+
+Omit `setEnvironment` for production, or set it to `development` for dev/test
+builds. Development devices only receive development push notifications and
+broadcasts.
 
 Ask for notification permission when the user is ready:
 

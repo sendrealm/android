@@ -13,6 +13,9 @@ class SendrealmConfig {
     var platform: String = "android"
         private set
 
+    var environment: String = "production"
+        private set
+
     var autoRequestPermission: Boolean = true
         private set
 
@@ -36,6 +39,11 @@ class SendrealmConfig {
 
     fun setPlatform(platform: String): SendrealmConfig {
         this.platform = platform.ifBlank { "android" }
+        return this
+    }
+
+    fun setEnvironment(environment: String): SendrealmConfig {
+        this.environment = if (environment == "development") "development" else "production"
         return this
     }
 

@@ -16,6 +16,7 @@ class SendrealmConfigTest {
         assertNull(config.externalUserId)
         assertNull(config.userEmail)
         assertEquals("android", config.platform)
+        assertEquals("production", config.environment)
         assertTrue(config.autoRequestPermission)
         assertFalse(config.forceRefreshRegistrationToken)
     }
@@ -29,6 +30,7 @@ class SendrealmConfigTest {
             .setExternalUserId("user_123")
             .setUserEmail("person@example.com")
             .setPlatform("react-native")
+            .setEnvironment("development")
             .setAutoRequestPermission(false)
             .setForceRefreshRegistrationToken(true)
 
@@ -37,6 +39,7 @@ class SendrealmConfigTest {
         assertEquals("user_123", config.externalUserId)
         assertEquals("person@example.com", config.userEmail)
         assertEquals("react-native", config.platform)
+        assertEquals("development", config.environment)
         assertFalse(config.autoRequestPermission)
         assertTrue(config.forceRefreshRegistrationToken)
     }
@@ -46,5 +49,12 @@ class SendrealmConfigTest {
         val config = SendrealmConfig().setPlatform("")
 
         assertEquals("android", config.platform)
+    }
+
+    @Test
+    fun unknownEnvironmentFallsBackToProduction() {
+        val config = SendrealmConfig().setEnvironment("staging")
+
+        assertEquals("production", config.environment)
     }
 }

@@ -11,5 +11,6 @@ data class SendrealmState(
     val externalUserId: String?,
     val userEmail: String?,
     val platform: String,
+    val environment: String,
     val sdkVersion: String
 )
