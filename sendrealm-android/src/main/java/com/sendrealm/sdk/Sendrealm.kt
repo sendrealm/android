@@ -67,7 +67,7 @@ object Sendrealm {
     private const val KEY_LAST_NOTIFICATION_PAYLOAD = "last_notification_payload"
     private const val KEY_LAST_OPEN_PAYLOAD = "last_open_payload"
     private const val KEY_RECENT_OPEN_KEYS = "recent_open_keys"
-    private const val SDK_VERSION = "0.1.0"
+    private const val SDK_VERSION = "0.1.1"
     private const val REGISTRATION_REFRESH_INTERVAL_MS = 15 * 60 * 1000L
     private const val CHANNEL_SYNC_INTERVAL_MS = 5 * 60 * 1000L
     private const val REGISTRATION_RETRY_COUNT = 3
