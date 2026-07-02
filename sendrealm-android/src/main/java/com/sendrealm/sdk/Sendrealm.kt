@@ -67,10 +67,11 @@ object Sendrealm {
     private const val KEY_LAST_NOTIFICATION_PAYLOAD = "last_notification_payload"
     private const val KEY_LAST_OPEN_PAYLOAD = "last_open_payload"
     private const val KEY_RECENT_OPEN_KEYS = "recent_open_keys"
-    private const val SDK_VERSION = "0.1.1"
+    private const val SDK_VERSION = "0.1.2"
     private const val REGISTRATION_REFRESH_INTERVAL_MS = 15 * 60 * 1000L
     private const val CHANNEL_SYNC_INTERVAL_MS = 5 * 60 * 1000L
     private const val REGISTRATION_RETRY_COUNT = 3
+    private const val PENDING_QUEUE_LIMIT = 1000
 
     private const val DEFAULT_BASE_URL = "https://sdk-api.sendrealm.com"
 
@@ -2141,7 +2142,7 @@ object Sendrealm {
                 )
             )
 
-            savePendingEvents(context, pendingEvents.takeLast(100).toMutableList())
+            savePendingEvents(context, pendingEvents.takeLast(PENDING_QUEUE_LIMIT).toMutableList())
         }
     }
 
@@ -2170,7 +2171,7 @@ object Sendrealm {
                 idempotencyKey = idempotencyKey("register")
             )
         )
-        savePendingRegistrations(context, registrations.takeLast(100).toMutableList())
+        savePendingRegistrations(context, registrations.takeLast(PENDING_QUEUE_LIMIT).toMutableList())
     }
 
     private fun enqueueSubscription(
@@ -2188,7 +2189,7 @@ object Sendrealm {
                 idempotencyKey = idempotencyKey(if (subscribed) "opt_in" else "opt_out")
             )
         )
-        savePendingSubscriptions(context, subscriptions.takeLast(100).toMutableList())
+        savePendingSubscriptions(context, subscriptions.takeLast(PENDING_QUEUE_LIMIT).toMutableList())
     }
 
     private fun flushPendingWorkBlocking(context: Context) {
@@ -2227,7 +2228,7 @@ object Sendrealm {
             }
         }
 
-        savePendingRegistrations(context, remaining.takeLast(100).toMutableList())
+        savePendingRegistrations(context, remaining.takeLast(PENDING_QUEUE_LIMIT).toMutableList())
     }
 
     private fun flushPendingSubscriptionsBlocking(context: Context) {
@@ -2260,7 +2261,7 @@ object Sendrealm {
             }
         }
 
-        savePendingSubscriptions(context, remaining.takeLast(100).toMutableList())
+        savePendingSubscriptions(context, remaining.takeLast(PENDING_QUEUE_LIMIT).toMutableList())
     }
 
     private fun flushPendingTagsBlocking(context: Context) {

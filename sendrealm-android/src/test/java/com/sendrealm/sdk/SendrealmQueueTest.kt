@@ -147,7 +147,7 @@ class SendrealmQueueTest {
 
     @Test
     fun registrationQueueDeduplicatesTokensAndLimitsStoredItems() {
-        repeat(101) { index ->
+        repeat(1001) { index ->
             Sendrealm.testingEnqueueRegistration(
                 context = context,
                 registrationId = "token_$index",
@@ -156,15 +156,15 @@ class SendrealmQueueTest {
         }
         Sendrealm.testingEnqueueRegistration(
             context = context,
-            registrationId = "token_100",
+            registrationId = "token_1000",
             reason = "latest"
         )
 
         val registrations = Sendrealm.testingQueuedRegistrations(context)
 
-        assertEquals(100, registrations.size)
+        assertEquals(1000, registrations.size)
         assertFalse(registrations.any { it["registrationId"] == "token_0" })
-        assertEquals(1, registrations.count { it["registrationId"] == "token_100" })
+        assertEquals(1, registrations.count { it["registrationId"] == "token_1000" })
         assertEquals("latest", registrations.last()["reason"])
         assertNotNull(registrations.last()["idempotencyKey"])
     }

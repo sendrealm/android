@@ -94,7 +94,7 @@ class SendrealmPublicApiTest {
         assertEquals("person@example.com", state.userEmail)
         assertEquals("authorized", diagnostics.permissionStatus)
         assertEquals("android", diagnostics.platform)
-        assertEquals("0.1.1", diagnostics.sdkVersion)
+        assertEquals("0.1.2", diagnostics.sdkVersion)
         assertTrue(diagnostics.registrationTokenPresent)
         assertEquals(server.url("/push").toString().trimEnd('/'), diagnostics.apiUrl)
         assertEquals(0, diagnostics.queueCounts.events)
