@@ -1,5 +1,11 @@
 # Sendrealm Android SDK Changelog
 
+## 0.1.3 - 2026-07-15
+
+### Changed
+- Added regression coverage confirming plain data-only notifications queue delivery and background receipt events.
+- Made the demo API base URL configurable for local push API testing.
+
 ## 0.1.2 - 2026-07-02
 
 ### Changed

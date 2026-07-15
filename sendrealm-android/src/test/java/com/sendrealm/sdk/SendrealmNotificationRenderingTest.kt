@@ -274,8 +274,7 @@ class SendrealmNotificationRenderingTest {
                         "body": "Rendered through onMessageReceived"
                       },
                       "metadata": {
-                        "notification_id": "notif_fcm_1",
-                        "android_launch_url": "myapp://fcm"
+                        "notification_id": "notif_fcm_1"
                       }
                     }
                     """.trimIndent()
@@ -289,6 +288,15 @@ class SendrealmNotificationRenderingTest {
             Sendrealm.testingQueuedEvents(context)
                 .any { it["notificationId"] == "notif_fcm_1" }
         }
+        val trackedEvents = Sendrealm.testingQueuedEvents(context)
+        assertTrue(
+            trackedEvents.any {
+                it["eventType"] == "delivery" && it["notificationId"] == "notif_fcm_1"
+            }
+        )
+        assertTrue(
+            trackedEvents.any { it["eventType"] == "background_notification_received" }
+        )
 
         service.onMessageReceived(
             RemoteMessage.Builder("sender@sendrealm")

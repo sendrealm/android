@@ -4,6 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+val sendrealmDemoBaseUrl = providers.gradleProperty("sendrealmDemoBaseUrl")
+    .getOrElse("https://sdk-api.sendrealm.com")
+
 android {
     namespace = "com.sendrealm"
     compileSdk = 35
@@ -14,6 +17,12 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField(
+            "String",
+            "SENDREALM_DEMO_BASE_URL",
+            "\"${sendrealmDemoBaseUrl.replace("\"", "\\\"")}\""
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,6 +44,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }

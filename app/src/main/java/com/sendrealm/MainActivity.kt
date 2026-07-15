@@ -66,7 +66,7 @@ private data class DemoNotificationEvent(
 
 class MainActivity : ComponentActivity() {
     private var appId by mutableStateOf("3NzKMzTQ")
-    private var baseUrl by mutableStateOf("https://sdk-api.sendrealm.com")
+    private var baseUrl by mutableStateOf(BuildConfig.SENDREALM_DEMO_BASE_URL)
     private var externalUserIdInput by mutableStateOf("android-demo-user")
     private var userEmailInput by mutableStateOf("android-demo@sendrealm.local")
     private var currentExternalUserId by mutableStateOf<String?>(null)

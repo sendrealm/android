@@ -84,7 +84,7 @@ class ApiClientTest {
             environment = "development",
             deviceId = "device_existing",
             appVersion = "1.2.3",
-            sdkVersion = "0.1.2",
+            sdkVersion = "0.1.3",
             osVersion = "Android 15",
             deviceLocale = "en-US",
             timezone = "America/Sao_Paulo",
@@ -111,7 +111,7 @@ class ApiClientTest {
         assertEquals("development", body.string("environment"))
         assertEquals("device_existing", body.string("device_id"))
         assertEquals("1.2.3", body.string("app_version"))
-        assertEquals("0.1.2", body.string("sdk_version"))
+        assertEquals("0.1.3", body.string("sdk_version"))
         assertEquals("Android 15", body.string("os_version"))
         assertEquals("en-US", body.string("device_locale"))
         assertEquals("America/Sao_Paulo", body.string("timezone"))
@@ -150,7 +150,7 @@ class ApiClientTest {
             userExternalId = "user_123",
             userEmail = "person@example.com",
             appVersion = "1.2.3",
-            sdkVersion = "0.1.2",
+            sdkVersion = "0.1.3",
             osVersion = "Android 15",
             deviceLocale = "pt-BR",
             timezone = "America/Sao_Paulo",
@@ -193,7 +193,7 @@ class ApiClientTest {
                 notificationId = "notification_123",
                 properties = mapOf("action_id" to "view", "attempt" to 2),
                 appVersion = "1.2.3",
-                sdkVersion = "0.1.2",
+                sdkVersion = "0.1.3",
                 osVersion = "Android 15",
                 deviceLocale = "en-US",
                 timezone = "UTC",
@@ -216,7 +216,7 @@ class ApiClientTest {
                 environment = "development",
                 subscribed = false,
                 registrationId = "fcm-token",
-                sdkVersion = "0.1.2",
+                sdkVersion = "0.1.3",
                 permissionStatus = "denied",
                 idempotencyKey = "subscription-key"
             )
@@ -352,7 +352,7 @@ class ApiClientTest {
             appId = "app_123",
             deviceId = null,
             appVersion = null,
-            sdkVersion = "0.1.2",
+            sdkVersion = "0.1.3",
             osVersion = null,
             deviceLocale = null,
             timezone = null,
@@ -366,14 +366,14 @@ class ApiClientTest {
             appId = "app_123",
             registrationId = "fcm-token",
             deviceId = "device_123",
-            sdkVersion = "0.1.2"
+            sdkVersion = "0.1.3"
         )
         val tracked = apiClient.trackEventBlocking(
             appId = "app_123",
             deviceId = "device_123",
             platform = "android",
             eventType = "open",
-            sdkVersion = "0.1.2"
+            sdkVersion = "0.1.3"
         )
 
         assertNull(initResponse)
