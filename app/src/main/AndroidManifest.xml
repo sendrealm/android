@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Sendrealm"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_sendrealm" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
